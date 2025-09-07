@@ -61,7 +61,7 @@ export EXA_API_KEY="your-exa-api-key"
 
 4. Run the application:
 ```bash
-go run .
+go run cmd/main.go
 ```
 
 ## Usage
@@ -111,7 +111,7 @@ The application consists of four main workflows:
 
 ### Project Structure
 
-- **`main.go`**: Application entry point with graceful shutdown
+- **`cmd/main.go`**: Application entry point with graceful shutdown
 - **`internal/config/`**: Configuration management and validation
 - **`internal/llm/`**: Language model client initialization
 - **`internal/tools/`**: Research tools (search, reflection utilities)
