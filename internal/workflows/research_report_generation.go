@@ -110,7 +110,6 @@ func (rrg *ResearchReportGeneration) Execute(ctx context.Context) (any, bool, er
 	if err != nil {
 		return "", false, fmt.Errorf("failed to build prompt: %w", err)
 	}
-	fmt.Println(prompt)
 
 	var ResearchReport ResearchReportGenerationOutputSchema
 	resp, err := rrg.client.CreateChatCompletion(

@@ -8,10 +8,10 @@ import (
 )
 
 type Config struct {
-	OpenAIAPIKey          string `json:"-"`
-	EXAAPIKey             string `json:"-"`
-	LogLevel              string `json:"log_level"`
-	MaxResearchIterations int    `json:"max_research_iterations"`
+	OpenAIKey          string `json:"-"`
+	ExaKey             string `json:"-"`
+	ExaEndpoint        string `json:"-"`
+	ExaNumSearchResult int    `json:"-"`
 }
 
 type ConfigError struct {
@@ -26,10 +26,10 @@ func (e *ConfigError) Error() string {
 
 func LoadConfig() (*Config, error) {
 	config := &Config{
-		OpenAIAPIKey:          GetString("OPENAI_API_KEY", ""),
-		EXAAPIKey:             GetString("EXA_API_KEY", ""),
-		LogLevel:              GetString("LOG_LEVEL", "info"),
-		MaxResearchIterations: GetInt("MAX_RESEARCH_ITERATIONS", 5),
+		OpenAIKey:          GetString("OPENAI_API_KEY", ""),
+		ExaKey:             GetString("EXA_API_KEY", ""),
+		ExaEndpoint:        "https://api.exa.ai/search",
+		ExaNumSearchResult: 10,
 	}
 
 	return config, nil

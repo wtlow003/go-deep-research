@@ -9,7 +9,7 @@ import (
 
 func InitializeClients(cfg *config.Config) (*openai.Client, *instructor.InstructorOpenAI, error) {
 
-	client := openai.NewClient(cfg.OpenAIAPIKey)
+	client := openai.NewClient(cfg.OpenAIKey)
 	structuredOutputClient := instructor.FromOpenAI(
 		client,
 		instructor.WithMode(instructor.ModeJSONSchema),
