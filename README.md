@@ -8,7 +8,9 @@
 
 ## Overview
 
-Deep Research is an agentic AI research assistant that automates the process of gathering, analyzing, and synthesizing information from various sources. While not a new topic, I decided to implement deep research in Go after exploring Deep Research in Python in both work and personal contexts. This project serves as a learning process for me to extract key concepts and techniques from existing agentic AI research assistants and implement them in a way that is less framework-dependent (e.g., without using LangGraph).
+Deep Research is an agentic AI research assistant that automates the process of gathering, analyzing, and synthesizing information from various sources.
+
+This project serves as a learning process for me to pick up Go and extract key concepts and techniques from existing agentic AI research assistants and implement them in a way that is less framework-dependent (e.g., without using LangGraph).
 
 ## Features
 
@@ -23,13 +25,48 @@ Deep Research is an agentic AI research assistant that automates the process of 
 The application follows a clean architecture pattern with separation of concerns:
 
 ```
-├── main.go               # Application entry point
+├── cmd/
+│   └── main.go               # Application entry point
 ├── internal/
 │   ├── config/           # Configuration management
 │   ├── llm/              # Language model clients
 │   ├── tools/            # Research tools (search, reflection)
 │   └── workflows/        # Research workflow implementations
 └── go.mod                # Go module dependencies
+```
+
+## Flowchart
+
+```mermaid
+   flowchart TD
+      A[User Input] --> B[Clarify with User Workflow]
+      B --> C{Need Clarification?}
+      C -->|Yes| D[Ask Clarifying Questions]
+      D --> B
+      C -->|No| E[Generate Research Brief]
+      E --> F[Web Research Workflow]
+
+      F --> G[LLM with Tools]
+      G --> H[Search Tool]
+      G --> I[Reflection Tool]
+      H --> J[Execute Web Search<br/>via Exa API]
+      J --> K[Summarize Search Results<br/>Concurrently]
+      K --> L[Store Compressed Notes]
+      I --> M{Research Complete?}
+      M -->|No| G
+      M -->|Yes| N[Generate Research Report]
+
+      L --> N
+      E --> N
+      N --> O[Create Final Report<br/>with Citations]
+      O --> P[Output Research Report]
+
+      style A fill:#e1f5fe
+      style P fill:#e8f5e8
+      style G fill:#fff3e0
+      style M fill:#fff8e1
+      style L fill:#f3e5f5
+      style E fill:#e8f5e8
 ```
 
 ## Quick Start
@@ -66,7 +103,7 @@ go run cmd/main.go
 
 ## Usage
 
-1. **Start the Application**: Run `go run .` to launch the interactive research assistant
+1. **Start the Application**: Run `go run cmd/main.go` to launch the interactive research assistant
 2. **Enter Your Research Request**: Type your research question or topic
 3. **Clarification Phase**: The AI may ask questions to refine the research scope
 4. **Research Execution**: The system will automatically:
@@ -132,9 +169,9 @@ gofmt -w .         # Format code
 
 ## Dependencies
 
-- **github.com/sashabaranov/go-openai**: OpenAI API client
-- **github.com/instructor-ai/instructor-go**: Structured output generation
-- **github.com/invopop/jsonschema**: JSON schema generation
+- **[go-openai](https://github.com/sashabaranov/go-openai)**: OpenAI API client
+- **[instructor-go](https://github.com/instructor-ai/instructor-go)**: Structured output generation
+- **[jsonschema](https://github.com/invopop/jsonschema)**: JSON schema generation
 - **Standard library packages**: context, log/slog, template, etc.
 
 ## License
